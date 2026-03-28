@@ -41,8 +41,7 @@ def clean_app_store(data, subset):
             rating = float(row[rating_idx])
             language = int(row[language_idx])
         except Exception as e:
-            print("App Store Data Cleaning Error:")
-            print(f"Error: {e}")
+            print(f"App Store Data Cleaning Error: {e}")
             print(f"Row {row}")
 
         if price != 0:
@@ -79,8 +78,7 @@ def clean_play_store(data, subset):
             price = float(row[price_idx].replace("$", ""))
             rating = float(row[rating_idx])
         except Exception as e:
-            print("Play Store Data Cleaning Error:")
-            print(f"Error: {e}")
+            print(f"Play Store Data Cleaning Error: {e}")
             print(f"Row {row}")
 
         if price != 0:
