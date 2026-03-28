@@ -22,23 +22,26 @@ def remove_duplicates(data, subset):
 
 def clean_app_store(data, subset):
     """clean data in app store dataset"""
-    name = subset.index("track_name")
-    price = subset.index("price")
-    rating_count = subset.index("rating_count_tot")
-    rating = subset.index("user_rating")
-    genre = subset.index("prime_genre")
-    language = subset.index("lang.num")
+    name_idx = subset.index("track_name")
+    price_idx = subset.index("price")
+    rating_count_idx = subset.index("rating_count_tot")
+    rating_idx = subset.index("user_rating")
+    genre_idx = subset.index("prime_genre")
+    language_idx = subset.index("lang.num")
 
-    data = remove_duplicates(data, name)
+    data = remove_duplicates(data, name_idx)
     cleaned_data = []
 
     for row in data:
+        if len(row) != len(subset):
+            continue
         try:
-            price = float(row[price])
-            rating_count = int(row[rating_count])
-            rating = float(row[rating])
-            language = int(row[language])
+            price = float(row[price_idx])
+            rating_count = int(row[rating_count_idx])
+            rating = float(row[rating_idx])
+            language = int(row[language_idx])
         except Exception as e:
+            print("App Store Data Cleaning Error:")
             print(f"Error: {e}")
             print(f"Row {row}")
 
@@ -48,8 +51,8 @@ def clean_app_store(data, subset):
             continue
             
         cleaned_data.append([
-            row[name],
-            row[genre],
+            row[name_idx],
+            row[genre_idx],
             rating_count,
             rating
         ])
@@ -58,22 +61,25 @@ def clean_app_store(data, subset):
 
 def clean_play_store(data, subset):
     """clean data in play store dataset"""
-    name = subset.index("App")
-    price = subset.index("Price")
-    installs = subset.index("Installs")
-    rating = subset.index("Rating")
-    category = subset.index("Category")
+    name_idx = subset.index("App")
+    price_idx = subset.index("Price")
+    installs_idx = subset.index("Installs")
+    rating_idx = subset.index("Rating")
+    category_idx = subset.index("Category")
 
-    data = remove_duplicates(data, name)
+    data = remove_duplicates(data, name_idx)
     cleaned_data = []
 
     for row in data:
+        if len(row) != len(subset):
+            continue
         try:
-            installs = int(row[installs].replace("+", "").replace(",", ""))
-            price = float(row[price].replace("$", ""))
-            installs = int(row[installs])
-            rating = float(row[rating])
+            installs = row[installs_idx].replace("+", "").replace(",", "")
+            installs = int(installs)
+            price = float(row[price_idx].replace("$", ""))
+            rating = float(row[rating_idx])
         except Exception as e:
+            print("Play Store Data Cleaning Error:")
             print(f"Error: {e}")
             print(f"Row {row}")
 
@@ -81,8 +87,8 @@ def clean_play_store(data, subset):
             continue
             
         cleaned_data.append([
-            row[name],
-            row[category],
+            row[name_idx],
+            row[category_idx],
             installs,
             rating
         ])
