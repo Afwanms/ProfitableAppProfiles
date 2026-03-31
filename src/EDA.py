@@ -37,6 +37,6 @@ def genre_user_avg(data):
 
     return genre_avg
 
-app_genre_users = genre_user_avg(app_cleaned)
+def sort_dict(data):
+    return sorted(data.items(), key=lambda x: x[1], reverse=True)
 
-print(app_genre_users)
