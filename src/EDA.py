@@ -18,5 +18,25 @@ def most_genre(data):
         most[genre] /= len(data)
     return most
 
-play_most_genre = most_genre(play_cleaned)
-print(play_most_genre)
+def genre_user_avg(data):
+    genre_user = {}
+    for row in data:
+        genre = row[1]
+        users = row[2]
+        if genre not in genre_user:
+            genre_user[genre] = [0, 0]
+        
+        genre_user[genre][0] += users
+        genre_user[genre][1] += 1
+
+        genre_avg = {}
+
+    for genre in genre_user:
+        total, count = genre_user[genre]
+        genre_avg[genre] = total / count
+
+    return genre_avg
+
+app_genre_users = genre_user_avg(app_cleaned)
+
+print(app_genre_users)
