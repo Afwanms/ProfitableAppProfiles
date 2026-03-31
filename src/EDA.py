@@ -1,6 +1,6 @@
 from DataCleaning import load_csv, clean_app_store, clean_play_store
 
-def most_genre(data):
+def most_common_genres(data):
     """Calculate the most popular genre in the dataset"""
     most = {}
     for row in data:
@@ -11,7 +11,7 @@ def most_genre(data):
         most[genre] /= len(data)
     return most
 
-def genre_user_avg(data):
+def most_users_per_genre(data):
     """Calculate the average number of users for each genre in the dataset"""
     genre_user = {}
     for row in data:
@@ -43,10 +43,10 @@ if __name__ == "__main__":
     app_cleaned = clean_app_store(app_data, app_header)
     play_cleaned = clean_play_store(play_data, play_header)
 
-    play_genre_most = most_genre(play_cleaned)
-    play_genre_avg = genre_user_avg(play_cleaned)
-    app_genre_most = most_genre(app_cleaned)
-    app_genre_avg = genre_user_avg(app_cleaned)
+    play_genre_most = most_common_genres(play_cleaned)
+    play_genre_avg = most_users_per_genre(play_cleaned)
+    app_genre_most = most_common_genres(app_cleaned)
+    app_genre_avg = most_users_per_genre(app_cleaned)
 
     print(sort_dict(play_genre_most)[:10])
     print(sort_dict(play_genre_avg)[:10])
